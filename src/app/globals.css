@@ -1,0 +1,84 @@
+@import 'tailwindcss';
+
+@theme {
+  --font-sans: 'Archivo Variable', ui-sans-serif, system-ui, sans-serif;
+
+  --color-stone: #ecece7;
+  --color-paper: #ffffff;
+  --color-mist: #f6f6f3;
+  --color-ink: #1e2422;
+  --color-muted: #59615d;
+  --color-line: #cbcec6;
+  --color-line-soft: #e1e3dd;
+  --color-stitch: #9aa19c;
+  --color-loden: #3d5a4b;
+  --color-loden-tint: #dce5df;
+  --color-skeleton: #dcddd7;
+  --color-danger: #9a3412;
+
+  --color-tone-sage: #b9c2b5;
+  --color-tone-oat: #d7d3c8;
+  --color-tone-slate: #c9cfd6;
+  --color-tone-khaki: #a89f8e;
+  --color-tone-charcoal: #2f3533;
+
+  --shadow-lift: 0 18px 40px rgb(30 36 34 / 0.22);
+  --shadow-panel: -20px 0 50px rgb(30 36 34 / 0.25);
+
+  --animate-pulse-soft: pulse-soft 1.4s ease-in-out infinite;
+  @keyframes pulse-soft {
+    0%,
+    100% {
+      opacity: 1;
+    }
+    50% {
+      opacity: 0.55;
+    }
+  }
+}
+
+/* Archivo's width axis carries the brand voice: wide for display, normal for reading. */
+@utility font-wide {
+  font-stretch: 125%;
+}
+@utility font-semiwide {
+  font-stretch: 115%;
+}
+
+@layer base {
+  html {
+    -webkit-text-size-adjust: 100%;
+    text-rendering: optimizeLegibility;
+  }
+  body {
+    @apply bg-stone text-ink font-sans antialiased;
+  }
+  :focus-visible {
+    outline: 2px solid var(--color-loden);
+    outline-offset: 3px;
+  }
+  ::selection {
+    background: var(--color-loden);
+    color: var(--color-paper);
+  }
+  dialog::backdrop {
+    background: rgb(30 36 34 / 0.45);
+  }
+  summary {
+    list-style: none;
+  }
+  summary::-webkit-details-marker {
+    display: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
