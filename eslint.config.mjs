@@ -16,6 +16,11 @@ const config = [
       'no-console': ['error', { allow: ['warn', 'error'] }],
     },
   },
+  {
+    // CLI scripts report to the terminal.
+    files: ['scripts/**'],
+    rules: { 'no-console': 'off' },
+  },
 ];
 
 export default config;
