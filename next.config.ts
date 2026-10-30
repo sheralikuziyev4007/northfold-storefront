@@ -3,6 +3,9 @@ import type { NextConfig } from 'next';
 const nextConfig: NextConfig = {
   reactStrictMode: true,
   poweredByHeader: false,
+  // Next 15 streams metadata into <body> for non-bot user agents. Keep it in <head> for everyone
+  // so link previews, audits and less common crawlers read titles and descriptions reliably.
+  htmlLimitedBots: /.*/,
   images: {
     formats: ['image/avif', 'image/webp'],
     remotePatterns: [{ protocol: 'https', hostname: 'cdn.shopify.com', pathname: '/**' }],
