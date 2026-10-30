@@ -1,0 +1,54 @@
+{
+  "name": "northfold-storefront",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Headless Shopify storefront for a fictional apparel brand, built with Next.js App Router and the Shopify Storefront API.",
+  "author": "Sherali Kuziyev <sheralikuziyev618@gmail.com>",
+  "license": "MIT",
+  "engines": {
+    "node": ">=20.9"
+  },
+  "scripts": {
+    "dev": "next dev",
+    "dev:fixtures": "SHOPIFY_DATA_SOURCE=fixtures next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "eslint . --max-warnings 0",
+    "typecheck": "tsc --noEmit",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "test:e2e": "playwright test",
+    "check": "npm run lint && npm run typecheck && npm run test && npm run build"
+  },
+  "dependencies": {
+    "@fontsource-variable/archivo": "5.3.0",
+    "clsx": "2.1.1",
+    "next": "15.5.28",
+    "react": "19.3.1",
+    "react-dom": "19.3.1",
+    "zustand": "5.0.16"
+  },
+  "devDependencies": {
+    "@eslint/eslintrc": "3.3.7",
+    "@playwright/test": "1.63.0",
+    "@tailwindcss/postcss": "4.3.3",
+    "@testing-library/dom": "10.4.2",
+    "@testing-library/jest-dom": "6.9.1",
+    "@testing-library/react": "16.3.3",
+    "@testing-library/user-event": "14.6.8",
+    "@types/node": "22.20.5",
+    "@types/react": "19.3.0",
+    "@types/react-dom": "19.3.0",
+    "@vitejs/plugin-react": "4.7.0",
+    "eslint": "9.39.5",
+    "eslint-config-next": "15.5.28",
+    "jsdom": "26.1.0",
+    "prettier": "3.9.10",
+    "prettier-plugin-tailwindcss": "0.8.1",
+    "tailwindcss": "4.3.3",
+    "typescript": "5.9.3",
+    "vitest": "3.2.7"
+  }
+}
