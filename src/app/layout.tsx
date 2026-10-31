@@ -12,6 +12,7 @@ import { MarketProvider } from '@/components/market/market-context';
 import { SearchDialog } from '@/components/search/search-dialog';
 import { Toaster } from '@/components/ui/toast';
 import { WishlistHydrator } from '@/components/wishlist/wishlist-hydrator';
+import { HERO_PHOTO } from '@/content/photos';
 import { getMarket } from '@/lib/markets';
 import { getCart, getCountry } from '@/lib/shopify';
 import { siteUrl } from '@/lib/utils';
@@ -21,7 +22,12 @@ export const metadata: Metadata = {
   title: { default: 'Northfold — Clothes built for the long haul', template: '%s | Northfold' },
   description:
     'Heavyweight cotton, honest seams and colours that age well. Small-run clothing from Northfold, a headless Shopify storefront.',
-  openGraph: { type: 'website', siteName: 'Northfold', locale: 'en_US' },
+  openGraph: {
+    type: 'website',
+    siteName: 'Northfold',
+    locale: 'en_US',
+    images: [{ url: HERO_PHOTO.src, alt: HERO_PHOTO.alt }],
+  },
   twitter: { card: 'summary_large_image' },
   robots: { index: true, follow: true },
 };

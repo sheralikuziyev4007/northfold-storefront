@@ -2,6 +2,7 @@ import Image from 'next/image';
 import { ButtonLink } from '@/components/ui/button';
 import { CareLabel } from '@/components/ui/care-label';
 import { HangDryIcon, NoBleachIcon, WashColdIcon } from '@/components/ui/icons';
+import { HERO_PHOTO } from '@/content/photos';
 
 export function Hero() {
   return (
@@ -26,8 +27,8 @@ export function Hero() {
 
       <div className="bg-tone-sage relative min-h-[420px] flex-[1_1_520px] overflow-hidden rounded lg:min-h-[620px]">
         <Image
-          src="/fixtures/img/collection/hero/1"
-          alt="Heavyweight hoodie in loden green"
+          src={HERO_PHOTO.src}
+          alt={HERO_PHOTO.alt}
           fill
           priority
           sizes="(min-width: 1024px) 50vw, 100vw"

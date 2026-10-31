@@ -4,7 +4,10 @@ import { SectionHeading } from '@/components/ui/section-heading';
 import type { Collection } from '@/lib/shopify/types';
 import { cn } from '@/lib/utils';
 
-const TONES = ['bg-tone-charcoal text-paper', 'bg-tone-oat', 'bg-tone-slate'];
+/** Used when a store collection has no image, so every tile still shows a picture. */
+const FALLBACK_IMAGES = ['outerwear', 'essentials', 'accessories'].map(
+  (h) => `/images/collections/${h}.webp`,
+);
 
 export function CollectionsGrid({ collections }: { collections: Collection[] }) {
   if (!collections.length) return null;
@@ -25,25 +28,21 @@ export function CollectionsGrid({ collections }: { collections: Collection[] }) 
               className={cn(
                 'group relative flex h-full items-end overflow-hidden rounded p-7 no-underline',
                 i === 0 ? 'min-h-[360px] md:min-h-[520px]' : 'min-h-[220px] md:min-h-[252px]',
-                c.image ? 'bg-tone-charcoal text-paper' : TONES[i % TONES.length],
+                'bg-tone-charcoal text-paper',
               )}
             >
-              {c.image ? (
-                <>
-                  <Image
-                    src={c.image.url}
-                    alt=""
-                    fill
-                    sizes="(min-width: 768px) 50vw, 100vw"
-                    className="object-cover transition-transform duration-500 group-hover:scale-[1.02]"
-                  />
-                  {/* Scrim keeps the title legible over any photo. */}
-                  <span
-                    aria-hidden="true"
-                    className="from-ink/70 absolute inset-x-0 bottom-0 h-2/3 bg-linear-to-t to-transparent"
-                  />
-                </>
-              ) : null}
+              <Image
+                src={c.image?.url ?? FALLBACK_IMAGES[i % FALLBACK_IMAGES.length]!}
+                alt=""
+                fill
+                sizes="(min-width: 768px) 50vw, 100vw"
+                className="object-cover transition-transform duration-500 group-hover:scale-[1.02]"
+              />
+              {/* Scrim keeps the title legible over any photo. */}
+              <span
+                aria-hidden="true"
+                className="from-ink/70 absolute inset-x-0 bottom-0 h-2/3 bg-linear-to-t to-transparent"
+              />
               <span className="relative flex flex-col gap-1.5">
                 <span className="font-semiwide text-[30px] font-extrabold">{c.title}</span>
                 {c.description ? <span className="text-[15px] opacity-85">{c.description}</span> : null}

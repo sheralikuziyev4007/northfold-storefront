@@ -8,15 +8,8 @@ const nextConfig: NextConfig = {
   htmlLimitedBots: /.*/,
   images: {
     formats: ['image/avif', 'image/webp'],
-    remotePatterns: [
-      { protocol: 'https', hostname: 'cdn.shopify.com', pathname: '/**' },
-      // Journal photography, used under the Unsplash License.
-      { protocol: 'https', hostname: 'images.unsplash.com', pathname: '/**' },
-    ],
-    // Fixture images are local SVGs; next/image only optimizes raster formats.
-    dangerouslyAllowSVG: true,
-    contentDispositionType: 'attachment',
-    contentSecurityPolicy: "default-src 'self'; script-src 'none'; sandbox;",
+    // Store product photos come from Shopify's CDN. Site photography is local WebP in /public/images.
+    remotePatterns: [{ protocol: 'https', hostname: 'cdn.shopify.com', pathname: '/**' }],
   },
   async headers() {
     return [

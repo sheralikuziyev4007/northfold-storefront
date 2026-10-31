@@ -156,6 +156,8 @@ Open http://localhost:3000.
 | `npm test`                                    | Unit and component tests                                          |
 | `npm run test:e2e`                            | Builds with sample data and runs Playwright on desktop and mobile |
 | `npm run verify:live`                         | Checks every GraphQL operation against the live endpoint          |
+| `npm run images:fixtures`                     | Renders sample product and collection images to WebP              |
+| `npm run images:photos`                       | Downloads the hero and journal photos from Unsplash as WebP       |
 | `npm run check`                               | Lint, typecheck, unit tests and build                             |
 
 ## Deploying to Vercel
@@ -183,16 +185,31 @@ Open http://localhost:3000.
   structured data.
 - **Customer accounts are not included.** They need a real store and the Customer Account API.
 - **mock.shop does not set label metafields**, so the "From the label" block appears only with the
-  sample data or a store that defines those metafields. Sample-catalog product photos are drawn as SVG;
-  with mock.shop the store's real product photos are used.
+  sample data or a store that defines those metafields. Sample-catalog product shots are drawings
+  rendered to WebP; with mock.shop the store's real product photos are used.
 
-## Photo credits
+## Images
 
-Journal photos are loaded from Unsplash and used under the [Unsplash License](https://unsplash.com/license).
-Each article credits its photographer under the cover image.
+All site images are stored in the repository as **WebP** under `public/images` and served through
+`next/image` (resized per device, AVIF or WebP). Only live store product photos come from Shopify's CDN.
 
-| Article                                           | Photographer                                                                                                                          |
+| Folder                                             | What                                                                     | Created by                                        |
+| -------------------------------------------------- | ------------------------------------------------------------------------ | ------------------------------------------------- |
+| `public/images/products`                           | Sample catalog product shots (87)                                        | `npm run images:fixtures`, rendered from SVG      |
+| `public/images/collections`                        | Collection tiles, also the fallback when a store collection has no image | `npm run images:fixtures`                         |
+| `public/images/hero.webp`, `public/images/journal` | Site photography                                                         | `npm run images:photos`, downloaded from Unsplash |
+
+A unit test checks that every image the code references exists and is WebP, and an end-to-end test
+checks that every visible image on the main pages actually loads.
+
+### Photo credits
+
+Photos are used under the [Unsplash License](https://unsplash.com/license). Journal articles credit the
+photographer under the cover.
+
+| Photo                                             | Photographer                                                                                                                          |
 | ------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------- |
+| Home hero                                         | [Mediamodifier](https://unsplash.com/photos/white-hoodie-and-distressed-jeans-kJXGTOY1wLQ)                                            |
 | What fabric weight actually tells you             | [Moonstarious Project](https://unsplash.com/photos/a-stack-of-folded-cloths-with-a-cotton-ball-on-top-wl2TODALiAY)                    |
 | Why we sew in small runs                          | [Alexander Andrews](https://unsplash.com/photos/photo-of-gray-sewing-machine-foot-lock-with-thread-on-black-cloth-jNKv4QohAk0)        |
 | Fixing a torn seam at home                        | [Erwin Bosman](https://unsplash.com/photos/hands-carefully-sewing-a-patch-onto-fabric-nnlbnAAA6M8)                                    |

@@ -51,7 +51,7 @@ describe('imagesForColor', () => {
   it('returns only the selected colour’s photos', () => {
     const images = imagesForColor(hoodie, 'Charcoal');
     expect(images).toHaveLength(3);
-    expect(images.every((img) => img.url.includes('/charcoal/'))).toBe(true);
+    expect(images.every((img) => /\/charcoal-\d\.webp$/.test(img.url))).toBe(true);
   });
 
   it('falls back to every photo when the colour is unknown', () => {
