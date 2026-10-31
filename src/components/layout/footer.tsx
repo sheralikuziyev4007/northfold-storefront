@@ -1,6 +1,9 @@
 import Link from 'next/link';
 import { FOOTER_NAV } from '@/lib/navigation';
 
+/** Link to the developer's portfolio. Override with NEXT_PUBLIC_AUTHOR_URL (Upwork profile, personal site). */
+const AUTHOR_URL = process.env.NEXT_PUBLIC_AUTHOR_URL || 'https://github.com/sheralikuziyev4007';
+
 export function Footer() {
   return (
     <footer className="border-line border-t">
@@ -26,10 +29,23 @@ export function Footer() {
           </nav>
         ))}
       </div>
-      <p className="text-muted mx-auto max-w-[1360px] px-5 pb-8 text-[13px] lg:px-8">
-        © 2026 Northfold. A portfolio project, not a real store. Product data comes from the Shopify
-        Storefront API.
-      </p>
+      <div className="text-muted mx-auto flex max-w-[1360px] flex-wrap items-baseline justify-between gap-x-8 gap-y-3 px-5 pb-8 text-[13px] lg:px-8">
+        <p>
+          © 2026 Northfold. A portfolio project, not a real store. Product data comes from the Shopify
+          Storefront API.
+        </p>
+        <p>
+          Designed and built by{' '}
+          <a
+            href={AUTHOR_URL}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-ink hover:text-loden font-semibold underline underline-offset-2"
+          >
+            Sherali Kuziyev
+          </a>
+        </p>
+      </div>
     </footer>
   );
 }
