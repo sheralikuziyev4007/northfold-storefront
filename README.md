@@ -1,4 +1,5 @@
 # Northfold — headless Shopify storefront
+
 [![CI](https://github.com/sheralikuziyev4007/northfold-storefront/actions/workflows/ci.yml/badge.svg)](https://github.com/sheralikuziyev4007/northfold-storefront/actions/workflows/ci.yml)
 
 A storefront for a fictional apparel brand, built with **Next.js 15 (App Router)** on top of the
