@@ -14,6 +14,7 @@ import { Toaster } from '@/components/ui/toast';
 import { WishlistHydrator } from '@/components/wishlist/wishlist-hydrator';
 import { HERO_PHOTO } from '@/content/photos';
 import { getMarket } from '@/lib/markets';
+import { getCollectionLinks } from '@/lib/shop-nav';
 import { getCart, getCountry } from '@/lib/shopify';
 import { siteUrl } from '@/lib/utils';
 
@@ -39,7 +40,7 @@ export const viewport: Viewport = {
 };
 
 export default async function RootLayout({ children }: { children: ReactNode }) {
-  const market = getMarket(await getCountry());
+  const [market, collectionLinks] = await Promise.all([getCountry().then(getMarket), getCollectionLinks()]);
   // A failing cart request must not take the whole page down; the cart renders empty instead.
   const cartPromise = getCart().catch((error: unknown) => {
     console.error(error);
@@ -64,7 +65,7 @@ export default async function RootLayout({ children }: { children: ReactNode }) 
             </main>
             <Footer />
             <CartDrawer />
-            <SearchDialog />
+            <SearchDialog collections={collectionLinks} />
             <Toaster />
             <ConsentBanner />
             <WishlistHydrator />

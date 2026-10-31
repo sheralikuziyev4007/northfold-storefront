@@ -39,7 +39,10 @@ out of the box, or against any real Shopify store with two environment variables
 - `⌘K` / `Ctrl K` search dialog with keyboard navigation (combobox pattern) plus a full results page.
 - Wishlist saved on the device, with move-to-cart.
 - Country and currency selector backed by Shopify Markets (`@inContext(country:)`). Switching market
-  reprices the catalog and the existing cart.
+  reprices the catalog and the existing cart. It is shown with the sample catalog
+  (`SHOPIFY_DATA_SOURCE=fixtures`); mock.shop serves a single USD market, so the live demo stays in the US.
+- Menu, footer and search shortcuts are built from the store's collections. Against mock.shop, which
+  ignores the products query, search results are matched by title, type and tags in the app.
 
 **Content and trust**
 

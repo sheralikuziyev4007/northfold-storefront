@@ -5,7 +5,7 @@ import { CareLabel } from '@/components/ui/care-label';
 const POPULAR = [
   { href: '/', label: 'Home' },
   { href: '/collections/all', label: 'New in' },
-  { href: '/collections/outerwear', label: 'Outerwear' },
+  { href: '/search', label: 'Search' },
   { href: '/journal', label: 'Journal' },
 ];
 

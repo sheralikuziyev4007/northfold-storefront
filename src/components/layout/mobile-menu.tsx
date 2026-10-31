@@ -5,11 +5,11 @@ import { usePathname } from 'next/navigation';
 import { useEffect } from 'react';
 import { CloseIcon, MenuIcon } from '@/components/ui/icons';
 import { Sheet } from '@/components/ui/sheet';
-import { MAIN_NAV } from '@/lib/navigation';
+import type { NavLink } from '@/lib/navigation';
 import { useUIStore } from '@/lib/stores/ui-store';
 import { CountryList } from './country-selector';
 
-export function MobileMenu() {
+export function MobileMenu({ items, showCountries }: { items: NavLink[]; showCountries: boolean }) {
   const open = useUIStore((s) => s.menuOpen);
   const openMenu = useUIStore((s) => s.openMenu);
   const close = useUIStore((s) => s.closeMenu);
@@ -41,7 +41,7 @@ export function MobileMenu() {
             </button>
           </div>
           <nav aria-label="Main" className="flex flex-col px-5 py-4">
-            {MAIN_NAV.map((item) => (
+            {items.map((item) => (
               <Link
                 key={item.href}
                 href={item.href}
@@ -55,10 +55,12 @@ export function MobileMenu() {
               Wishlist
             </Link>
           </nav>
-          <div className="border-line mt-auto border-t px-3 py-4">
-            <p className="px-3 pb-2 text-sm font-bold">Shipping to</p>
-            <CountryList onPicked={close} />
-          </div>
+          {showCountries ? (
+            <div className="border-line mt-auto border-t px-3 py-4">
+              <p className="px-3 pb-2 text-sm font-bold">Shipping to</p>
+              <CountryList onPicked={close} />
+            </div>
+          ) : null}
         </div>
       </Sheet>
     </>

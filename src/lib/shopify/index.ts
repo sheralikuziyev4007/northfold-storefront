@@ -2,7 +2,8 @@ import 'server-only';
 import { cookies } from 'next/headers';
 import { cache } from 'react';
 import { COUNTRY_COOKIE, DEFAULT_COUNTRY, isCountryCode, type CountryCode } from '@/lib/markets';
-import { storefrontFetch, TAGS } from './client';
+import { filterProductsByQuery } from '@/lib/catalog/search';
+import { isMarketsEnabled, storefrontFetch, TAGS, usesMockShop } from './client';
 import { normalizeCart, normalizeCollection, normalizeProduct } from './normalize';
 import {
   ADD_CART_LINES,
@@ -20,13 +21,14 @@ import {
 import type { CartMutationPayload, RawCart, RawCollection, RawProduct } from './raw-types';
 import type { Cart, Collection, Product } from './types';
 
-export { ShopifyError, getDataSource, TAGS } from './client';
+export { ShopifyError, getDataSource, isMarketsEnabled, TAGS } from './client';
 export * from './types';
 
 export const ALL_PRODUCTS_HANDLE = 'all';
 export const CART_COOKIE = 'nf_cart';
 
 export const getCountry = cache(async (): Promise<CountryCode> => {
+  if (!isMarketsEnabled()) return DEFAULT_COUNTRY;
   const value = (await cookies()).get(COUNTRY_COOKIE)?.value;
   return isCountryCode(value) ? value : DEFAULT_COUNTRY;
 });
@@ -118,6 +120,8 @@ export const getCollectionWithProducts = cache(
 export async function searchProducts(query: string, first = 24): Promise<Product[]> {
   const trimmed = query.trim();
   if (!trimmed) return [];
+  // mock.shop returns the same products whatever the query, so match them here instead.
+  if (usesMockShop()) return filterProductsByQuery(await getProducts(), trimmed).slice(0, first);
   return getProducts({ query: trimmed, first });
 }
 

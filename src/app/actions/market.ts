@@ -3,10 +3,10 @@
 import { revalidatePath } from 'next/cache';
 import { cookies } from 'next/headers';
 import { COUNTRY_COOKIE, isCountryCode } from '@/lib/markets';
-import { CART_COOKIE, updateCartCountry } from '@/lib/shopify';
+import { CART_COOKIE, isMarketsEnabled, updateCartCountry } from '@/lib/shopify';
 
 export async function setCountry(country: string): Promise<{ ok: boolean }> {
-  if (!isCountryCode(country)) return { ok: false };
+  if (!isMarketsEnabled() || !isCountryCode(country)) return { ok: false };
   const jar = await cookies();
   jar.set(COUNTRY_COOKIE, country, { path: '/', sameSite: 'lax', maxAge: 60 * 60 * 24 * 365 });
 

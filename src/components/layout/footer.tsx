@@ -1,10 +1,12 @@
 import Link from 'next/link';
-import { FOOTER_NAV } from '@/lib/navigation';
+import { footerNav } from '@/lib/navigation';
+import { getCollectionLinks } from '@/lib/shop-nav';
 
 /** Link to the developer's portfolio. Override with NEXT_PUBLIC_AUTHOR_URL (Upwork profile, personal site). */
 const AUTHOR_URL = process.env.NEXT_PUBLIC_AUTHOR_URL || 'https://github.com/sheralikuziyev4007';
 
-export function Footer() {
+export async function Footer() {
+  const groups = footerNav(await getCollectionLinks());
   return (
     <footer className="border-line border-t">
       <div className="mx-auto flex max-w-[1360px] flex-wrap gap-x-16 gap-y-10 px-5 pt-14 pb-10 lg:px-8">
@@ -14,7 +16,7 @@ export function Footer() {
             Small-run clothing in heavyweight natural fabrics.
           </p>
         </div>
-        {FOOTER_NAV.map((group) => (
+        {groups.map((group) => (
           <nav
             key={group.title}
             aria-label={group.title}

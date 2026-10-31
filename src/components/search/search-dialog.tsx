@@ -8,18 +8,13 @@ import type { SearchResult } from '@/app/api/search/route';
 import { SearchIcon, SpinnerIcon } from '@/components/ui/icons';
 import { Sheet } from '@/components/ui/sheet';
 import { track } from '@/lib/analytics';
+import type { NavLink } from '@/lib/navigation';
 import { useUIStore } from '@/lib/stores/ui-store';
 import { cn } from '@/lib/utils';
 
-const SUGGESTED = [
-  { href: '/collections/outerwear', label: 'Outerwear' },
-  { href: '/collections/essentials', label: 'Essentials' },
-  { href: '/collections/accessories', label: 'Accessories' },
-];
-
 type Status = 'idle' | 'loading' | 'done' | 'error';
 
-function SearchPanel({ onClose }: { onClose: () => void }) {
+function SearchPanel({ onClose, collections }: { onClose: () => void; collections: NavLink[] }) {
   const router = useRouter();
   const [query, setQuery] = useState('');
   const [results, setResults] = useState<SearchResult[]>([]);
@@ -177,19 +172,23 @@ function SearchPanel({ onClose }: { onClose: () => void }) {
           </>
         ) : null}
 
-        <span className="text-muted px-2 pt-3 pb-1 text-[13px] font-semibold">Collections</span>
-        <div className="flex flex-wrap gap-2 px-2 pb-2">
-          {SUGGESTED.map((s) => (
-            <Link
-              key={s.href}
-              href={s.href}
-              onClick={onClose}
-              className="border-line hover:border-ink inline-flex h-9 items-center rounded-full border px-3.5 text-sm no-underline"
-            >
-              {s.label}
-            </Link>
-          ))}
-        </div>
+        {collections.length > 0 ? (
+          <>
+            <span className="text-muted px-2 pt-3 pb-1 text-[13px] font-semibold">Collections</span>
+            <div className="flex flex-wrap gap-2 px-2 pb-2">
+              {collections.map((s) => (
+                <Link
+                  key={s.href}
+                  href={s.href}
+                  onClick={onClose}
+                  className="border-line hover:border-ink inline-flex h-9 items-center rounded-full border px-3.5 text-sm no-underline"
+                >
+                  {s.label}
+                </Link>
+              ))}
+            </div>
+          </>
+        ) : null}
       </div>
 
       <div className="border-line-soft bg-mist text-muted hidden gap-4.5 border-t px-5 py-3 text-[13px] sm:flex">
@@ -201,12 +200,12 @@ function SearchPanel({ onClose }: { onClose: () => void }) {
   );
 }
 
-export function SearchDialog() {
+export function SearchDialog({ collections }: { collections: NavLink[] }) {
   const open = useUIStore((s) => s.searchOpen);
   const close = useUIStore((s) => s.closeSearch);
   return (
     <Sheet open={open} onClose={close} label="Search products" placement="top-center">
-      <SearchPanel onClose={close} />
+      <SearchPanel onClose={close} collections={collections} />
     </Sheet>
   );
 }

@@ -16,6 +16,23 @@ export function getDataSource(): DataSource {
   return process.env.SHOPIFY_DATA_SOURCE === 'fixtures' ? 'fixtures' : 'live';
 }
 
+function storefrontEndpoint(): string {
+  return process.env.SHOPIFY_STOREFRONT_ENDPOINT || MOCK_SHOP_ENDPOINT;
+}
+
+/**
+ * mock.shop serves one market (USD) and ignores the products `query` argument,
+ * so country switching and server-side search only run against the sample catalog or a real store.
+ */
+export function usesMockShop(): boolean {
+  return getDataSource() === 'live' && storefrontEndpoint() === MOCK_SHOP_ENDPOINT;
+}
+
+/** The country selector is shown only in sample-catalog mode, where every market has its own prices. */
+export function isMarketsEnabled(): boolean {
+  return getDataSource() === 'fixtures';
+}
+
 export class ShopifyError extends Error {
   constructor(
     message: string,
@@ -47,7 +64,7 @@ export async function storefrontFetch<T>(document: string, options: FetchOptions
     return handleFixtureOperation(operation, variables) as Promise<T>;
   }
 
-  const endpoint = process.env.SHOPIFY_STOREFRONT_ENDPOINT || MOCK_SHOP_ENDPOINT;
+  const endpoint = storefrontEndpoint();
   const token = process.env.SHOPIFY_STOREFRONT_TOKEN;
 
   let response: Response;
