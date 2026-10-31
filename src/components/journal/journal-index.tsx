@@ -46,7 +46,12 @@ export function JournalIndex({ articles }: { articles: Article[] }) {
           href={`/journal/${featured.slug}`}
           className="group bg-paper flex flex-wrap items-center gap-8 overflow-hidden rounded no-underline"
         >
-          <ArticleCover article={featured} className="aspect-[16/10] flex-[1_1_520px] rounded-none" />
+          <ArticleCover
+            article={featured}
+            className="aspect-[16/10] flex-[1_1_520px] rounded-none"
+            sizes="(min-width: 1024px) 55vw, 100vw"
+            priority
+          />
           <span className="flex flex-[1_1_360px] flex-col gap-3.5 p-8">
             <span className="text-muted text-sm">
               {featured.topic}, {featured.readingMinutes} min read

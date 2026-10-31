@@ -3,8 +3,16 @@ export type JournalTopic = 'Making' | 'Care guides' | 'Field notes';
 
 export type Block = { type: 'p'; text: string } | { type: 'h2'; text: string };
 
+export type Cover = {
+  /** Unsplash CDN URL. Photos are used under the Unsplash License and credited on the article page. */
+  src: string;
+  alt: string;
+  credit: { name: string; url: string };
+};
+
 export type Article = {
   slug: string;
+  cover: Cover;
   title: string;
   topic: JournalTopic;
   date: string;
@@ -20,6 +28,14 @@ export const TOPICS: JournalTopic[] = ['Making', 'Care guides', 'Field notes'];
 export const ARTICLES: Article[] = [
   {
     slug: 'what-fabric-weight-tells-you',
+    cover: {
+      src: 'https://images.unsplash.com/photo-1640747669771-b82a6e40f534?auto=format&fit=crop&w=2400&q=80',
+      alt: 'Stack of folded fabric in muted colours with a cotton boll on top',
+      credit: {
+        name: 'Moonstarious Project',
+        url: 'https://unsplash.com/photos/a-stack-of-folded-cloths-with-a-cotton-ball-on-top-wl2TODALiAY',
+      },
+    },
     title: 'What fabric weight actually tells you',
     topic: 'Care guides',
     date: '2026-10-12',
@@ -56,6 +72,14 @@ export const ARTICLES: Article[] = [
   },
   {
     slug: 'why-we-sew-in-small-runs',
+    cover: {
+      src: 'https://images.unsplash.com/photo-1497997092403-f091fcf5b6c4?auto=format&fit=crop&w=2400&q=80',
+      alt: 'Sewing machine presser foot stitching thread into dark fabric',
+      credit: {
+        name: 'Alexander Andrews',
+        url: 'https://unsplash.com/photos/photo-of-gray-sewing-machine-foot-lock-with-thread-on-black-cloth-jNKv4QohAk0',
+      },
+    },
     title: 'Why we sew in small runs',
     topic: 'Making',
     date: '2026-10-01',
@@ -83,6 +107,14 @@ export const ARTICLES: Article[] = [
   },
   {
     slug: 'fixing-a-torn-seam-at-home',
+    cover: {
+      src: 'https://images.unsplash.com/photo-1772291320136-7bfb40006088?auto=format&fit=crop&w=2400&q=80',
+      alt: 'Hands sewing a patch onto light fabric with a needle and thread',
+      credit: {
+        name: 'Erwin Bosman',
+        url: 'https://unsplash.com/photos/hands-carefully-sewing-a-patch-onto-fabric-nnlbnAAA6M8',
+      },
+    },
     title: 'Fixing a torn seam at home',
     topic: 'Care guides',
     date: '2026-09-18',
@@ -114,6 +146,14 @@ export const ARTICLES: Article[] = [
   },
   {
     slug: 'washing-heavyweight-cotton',
+    cover: {
+      src: 'https://images.unsplash.com/photo-1716749188938-e66263f36728?auto=format&fit=crop&w=2400&q=80',
+      alt: 'Laundry drying on a line in front of a building',
+      credit: {
+        name: 'Gabriella Clare Marino',
+        url: 'https://unsplash.com/photos/clothes-hanging-out-to-dry-on-a-clothes-line-in-front-of-a-building-P6ICe9mEYbQ',
+      },
+    },
     title: 'Washing a heavyweight hoodie without shrinking it',
     topic: 'Care guides',
     date: '2026-09-05',
@@ -136,6 +176,14 @@ export const ARTICLES: Article[] = [
   },
   {
     slug: 'from-cotton-bale-to-fleece',
+    cover: {
+      src: 'https://images.unsplash.com/photo-1616431101491-554c0932ea40?auto=format&fit=crop&w=2400&q=80',
+      alt: 'Stem of white cotton bolls against a plain background',
+      credit: {
+        name: 'Ranurte',
+        url: 'https://unsplash.com/photos/cotton-stem-with-white-bolls-kSdi_gqbGGs',
+      },
+    },
     title: 'From cotton bale to finished fleece',
     topic: 'Making',
     date: '2026-08-22',
@@ -162,6 +210,14 @@ export const ARTICLES: Article[] = [
   },
   {
     slug: 'packing-light-for-the-hills',
+    cover: {
+      src: 'https://images.unsplash.com/photo-1476979735039-2fdea9e9e407?auto=format&fit=crop&w=2400&q=80',
+      alt: 'Two hiking backpacks resting on rocks beside a forest trail',
+      credit: {
+        name: 'Andrew Ly',
+        url: 'https://unsplash.com/photos/two-gray-and-orange-backpacks-on-gray-rocks-at-daytime-bQl2kRQyUE8',
+      },
+    },
     title: 'Packing light for a week in the hills',
     topic: 'Field notes',
     date: '2026-08-08',

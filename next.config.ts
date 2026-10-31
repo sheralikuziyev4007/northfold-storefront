@@ -8,7 +8,11 @@ const nextConfig: NextConfig = {
   htmlLimitedBots: /.*/,
   images: {
     formats: ['image/avif', 'image/webp'],
-    remotePatterns: [{ protocol: 'https', hostname: 'cdn.shopify.com', pathname: '/**' }],
+    remotePatterns: [
+      { protocol: 'https', hostname: 'cdn.shopify.com', pathname: '/**' },
+      // Journal photography, used under the Unsplash License.
+      { protocol: 'https', hostname: 'images.unsplash.com', pathname: '/**' },
+    ],
     // Fixture images are local SVGs; next/image only optimizes raster formats.
     dangerouslyAllowSVG: true,
     contentDispositionType: 'attachment',

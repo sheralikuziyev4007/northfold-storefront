@@ -181,8 +181,22 @@ Open http://localhost:3000.
   structured data.
 - **Customer accounts are not included.** They need a real store and the Customer Account API.
 - **mock.shop does not set label metafields**, so the "From the label" block appears only with the
-  sample data or a store that defines those metafields. Fixture product photos are drawn as SVG to
-  avoid shipping stock photography.
+  sample data or a store that defines those metafields. Sample-catalog product photos are drawn as SVG;
+  with mock.shop the store's real product photos are used.
+
+## Photo credits
+
+Journal photos are loaded from Unsplash and used under the [Unsplash License](https://unsplash.com/license).
+Each article credits its photographer under the cover image.
+
+| Article                                           | Photographer                                                                                                                          |
+| ------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------- |
+| What fabric weight actually tells you             | [Moonstarious Project](https://unsplash.com/photos/a-stack-of-folded-cloths-with-a-cotton-ball-on-top-wl2TODALiAY)                    |
+| Why we sew in small runs                          | [Alexander Andrews](https://unsplash.com/photos/photo-of-gray-sewing-machine-foot-lock-with-thread-on-black-cloth-jNKv4QohAk0)        |
+| Fixing a torn seam at home                        | [Erwin Bosman](https://unsplash.com/photos/hands-carefully-sewing-a-patch-onto-fabric-nnlbnAAA6M8)                                    |
+| Washing a heavyweight hoodie without shrinking it | [Gabriella Clare Marino](https://unsplash.com/photos/clothes-hanging-out-to-dry-on-a-clothes-line-in-front-of-a-building-P6ICe9mEYbQ) |
+| From cotton bale to finished fleece               | [Ranurte](https://unsplash.com/photos/cotton-stem-with-white-bolls-kSdi_gqbGGs)                                                       |
+| Packing light for a week in the hills             | [Andrew Ly](https://unsplash.com/photos/two-gray-and-orange-backpacks-on-gray-rocks-at-daytime-bQl2kRQyUE8)                           |
 
 ## License
 

@@ -5,6 +5,7 @@ import { notFound } from 'next/navigation';
 import { Price } from '@/components/product/price';
 import { BreadcrumbJsonLd } from '@/components/seo/json-ld';
 import { Breadcrumbs } from '@/components/ui/breadcrumbs';
+import { ArticleCover, PhotoCredit } from '@/components/journal/article-card';
 import { getArticle } from '@/content/journal';
 import { formatDate } from '@/lib/format';
 import { getMarket } from '@/lib/markets';
@@ -92,7 +93,17 @@ export default async function ArticlePage({ params }: Props) {
         </p>
       </header>
       <div className="mx-auto max-w-[1160px] px-5 lg:px-8">
-        <div aria-hidden="true" className="aspect-[21/9] rounded" style={{ background: article.tone }} />
+        <figure className="m-0 flex flex-col gap-2.5">
+          <ArticleCover
+            article={article}
+            className="aspect-[3/2] sm:aspect-[21/9]"
+            sizes="(min-width: 1160px) 1100px, 100vw"
+            priority
+          />
+          <figcaption>
+            <PhotoCredit article={article} />
+          </figcaption>
+        </figure>
       </div>
       <div className="mx-auto flex max-w-[680px] flex-col gap-5.5 px-5 pt-12 pb-8 text-lg leading-[1.7] lg:px-8">
         {article.body.map((block, i) =>
