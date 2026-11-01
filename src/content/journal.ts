@@ -16,7 +16,10 @@ export type Article = {
   excerpt: string;
   tone: string;
   body: Block[];
+  /** Products from the sample catalog. */
   productHandles: string[];
+  /** Words used to find matching products when the connected store does not carry those handles. */
+  productKeywords: string[];
 };
 
 export const TOPICS: JournalTopic[] = ['Making', 'Care guides', 'Field notes'];
@@ -66,6 +69,7 @@ export const ARTICLES: Article[] = [
       },
     ],
     productHandles: ['heavyweight-hoodie', 'boxy-pocket-tee', 'loopback-sweatpants'],
+    productKeywords: ['hoodie', 't-shirt', 'sweatpants'],
   },
   {
     slug: 'why-we-sew-in-small-runs',
@@ -102,6 +106,7 @@ export const ARTICLES: Article[] = [
       },
     ],
     productHandles: ['canvas-chore-jacket', 'brushed-crewneck'],
+    productKeywords: ['jacket', 'crewneck'],
   },
   {
     slug: 'fixing-a-torn-seam-at-home',
@@ -142,6 +147,7 @@ export const ARTICLES: Article[] = [
       },
     ],
     productHandles: ['canvas-chore-jacket'],
+    productKeywords: ['jacket', 'hoodie'],
   },
   {
     slug: 'washing-heavyweight-cotton',
@@ -173,6 +179,7 @@ export const ARTICLES: Article[] = [
       },
     ],
     productHandles: ['heavyweight-hoodie', 'brushed-crewneck'],
+    productKeywords: ['hoodie', 'crewneck'],
   },
   {
     slug: 'from-cotton-bale-to-fleece',
@@ -208,6 +215,7 @@ export const ARTICLES: Article[] = [
       },
     ],
     productHandles: ['heavyweight-hoodie', 'loopback-sweatpants'],
+    productKeywords: ['hoodie', 'sweatpants'],
   },
   {
     slug: 'packing-light-for-the-hills',
@@ -242,6 +250,7 @@ export const ARTICLES: Article[] = [
       },
     ],
     productHandles: ['wool-overshirt', 'quilted-liner-jacket', 'merino-socks', 'canvas-tote'],
+    productKeywords: ['half zip', 'puffer', 'beanie', 'frontpack'],
   },
 ];
 

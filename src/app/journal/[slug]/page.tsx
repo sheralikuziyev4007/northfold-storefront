@@ -9,7 +9,8 @@ import { ArticleCover, PhotoCredit } from '@/components/journal/article-card';
 import { getArticle } from '@/content/journal';
 import { formatDate } from '@/lib/format';
 import { getMarket } from '@/lib/markets';
-import { getCountry, getProduct } from '@/lib/shopify';
+import { filterProductsByQuery } from '@/lib/catalog/search';
+import { getCountry, getProduct, getProducts, type Product } from '@/lib/shopify';
 
 type Props = { params: Promise<{ slug: string }> };
 
@@ -29,13 +30,26 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   };
 }
 
-async function StoryProducts({ handles }: { handles: string[] }) {
-  const [products, country] = await Promise.all([
-    Promise.all(handles.map((h) => getProduct(h).catch(() => null))),
-    getCountry(),
-  ]);
-  const found = products.filter((p) => p !== null);
-  // Handles come from the sample catalog; a live store may not carry them.
+/**
+ * The story's own products when the store carries them (sample catalog), otherwise the first
+ * product matching each keyword, so a live store still gets a "shop the story" row.
+ */
+async function storyProducts(handles: string[], keywords: string[]): Promise<Product[]> {
+  const byHandle = (await Promise.all(handles.map((h) => getProduct(h).catch(() => null)))).filter(
+    (p) => p !== null,
+  );
+  if (byHandle.length) return byHandle;
+  const catalog = await getProducts().catch(() => []);
+  const picked = new Map<string, Product>();
+  for (const keyword of keywords) {
+    const match = filterProductsByQuery(catalog, keyword).find((p) => !picked.has(p.id));
+    if (match) picked.set(match.id, match);
+  }
+  return [...picked.values()];
+}
+
+async function StoryProducts({ handles, keywords }: { handles: string[]; keywords: string[] }) {
+  const [found, country] = await Promise.all([storyProducts(handles, keywords), getCountry()]);
   if (!found.length) return null;
   const { locale } = getMarket(country);
 
@@ -116,7 +130,7 @@ export default async function ArticlePage({ params }: Props) {
           ),
         )}
       </div>
-      <StoryProducts handles={article.productHandles} />
+      <StoryProducts handles={article.productHandles} keywords={article.productKeywords} />
     </article>
   );
 }
