@@ -12,6 +12,8 @@ out of the box, or against any real Shopify store with two environment variables
 
 > Portfolio project. Northfold is not a real brand and the store does not sell anything.
 
+![Filtering the catalog, searching with Ctrl K and adding a product to the cart](docs/demo.gif)
+
 ![Home page](docs/screenshots/home.webp)
 
 <table>
