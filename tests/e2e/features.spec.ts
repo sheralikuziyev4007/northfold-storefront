@@ -94,3 +94,11 @@ test.describe('analytics consent', () => {
     expect(events).toContain('add_to_cart');
   });
 });
+
+test('missing products and collections answer with HTTP 404', async ({ page }) => {
+  for (const path of ['/products/no-such-product', '/collections/no-such-collection']) {
+    const response = await page.goto(path);
+    expect(response?.status()).toBe(404);
+    await expect(page.getByRole('heading', { level: 1 })).toHaveText('We can’t find that page.');
+  }
+});

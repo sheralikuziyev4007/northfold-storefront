@@ -1,8 +1,9 @@
 import Image from 'next/image';
 import Link from 'next/link';
+import type { CardColor } from '@/lib/catalog/card-colors';
 import { swatchFor } from '@/lib/catalog/swatches';
 import type { Product } from '@/lib/shopify/types';
-import { pluralize } from '@/lib/utils';
+import { cn, pluralize } from '@/lib/utils';
 import { Price } from './price';
 
 export function colorValues(product: Product): string[] {
@@ -15,6 +16,7 @@ export function ProductCard({
   priority = false,
   sizes = '(min-width: 1024px) 25vw, (min-width: 640px) 33vw, 50vw',
   headingLevel = 3,
+  color = null,
 }: {
   product: Product;
   locale: string;
@@ -22,6 +24,8 @@ export function ProductCard({
   sizes?: string;
   /** 2 when the grid sits directly under the page's h1, 3 under a section heading. */
   headingLevel?: 2 | 3;
+  /** Colour this card opens on; its photo is shown and the link preselects it. */
+  color?: CardColor | null;
 }) {
   const Heading = headingLevel === 2 ? 'h2' : 'h3';
   const colors = colorValues(product);
@@ -29,7 +33,10 @@ export function ProductCard({
   const compareAt = firstVariant?.compareAtPrice ?? null;
   const onSale = compareAt && Number(compareAt.amount) > Number(product.priceRange.min.amount);
   const isNew = product.tags.includes('new');
-  const href = `/products/${product.handle}`;
+  const href = color
+    ? `/products/${product.handle}?${new URLSearchParams({ [color.param]: color.value })}`
+    : `/products/${product.handle}`;
+  const image = color?.image ?? product.featuredImage;
 
   return (
     <article className="group relative flex flex-col gap-3">
@@ -39,9 +46,9 @@ export function ProductCard({
         tabIndex={-1}
         aria-hidden="true"
       >
-        {product.featuredImage ? (
+        {image ? (
           <Image
-            src={product.featuredImage.url}
+            src={image.url}
             alt=""
             fill
             sizes={sizes}
@@ -87,7 +94,10 @@ export function ProductCard({
             <span
               key={c}
               title={c}
-              className="size-4 rounded-full shadow-[inset_0_0_0_1px_rgb(30_36_34/0.2)]"
+              className={cn(
+                'size-4 rounded-full shadow-[inset_0_0_0_1px_rgb(30_36_34/0.2)]',
+                c === color?.value && 'ring-ink ring-offset-paper ring-[1.5px] ring-offset-[1.5px]',
+              )}
               style={{ background: swatchFor(c) }}
             />
           ))}

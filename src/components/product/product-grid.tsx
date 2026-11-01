@@ -1,3 +1,4 @@
+import { pickCardColors } from '@/lib/catalog/card-colors';
 import type { Product } from '@/lib/shopify/types';
 import { cn } from '@/lib/utils';
 import { ProductCard } from './product-card';
@@ -9,6 +10,7 @@ export function ProductGrid({
   priorityCount = 0,
   label,
   headingLevel = 3,
+  preferredColors,
 }: {
   products: Product[];
   locale: string;
@@ -16,7 +18,10 @@ export function ProductGrid({
   priorityCount?: number;
   label?: string;
   headingLevel?: 2 | 3;
+  /** Colours chosen in the filters; matching cards show that colour. */
+  preferredColors?: string[];
 }) {
+  const cardColors = pickCardColors(products, preferredColors);
   return (
     <ul
       aria-label={label}
@@ -32,6 +37,7 @@ export function ProductGrid({
             locale={locale}
             priority={i < priorityCount}
             headingLevel={headingLevel}
+            color={cardColors[i] ?? null}
           />
         </li>
       ))}

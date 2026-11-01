@@ -95,6 +95,7 @@ export default async function CollectionPage({ params, searchParams }: Props) {
               priorityCount={4}
               label={`${data.collection.title} products`}
               headingLevel={2}
+              preferredColors={filters.colors}
             />
           ) : (
             <div className="bg-paper flex flex-col items-start gap-3 rounded px-8 py-12">
