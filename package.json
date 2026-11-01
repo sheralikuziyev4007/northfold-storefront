@@ -3,6 +3,11 @@
   "version": "1.0.0",
   "private": true,
   "description": "Headless Shopify storefront for a fictional apparel brand, built with Next.js App Router and the Shopify Storefront API.",
+  "homepage": "https://northfold-storefront.vercel.app",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sheralikuziyev4007/northfold-storefront.git"
+  },
   "author": "Sherali Kuziyev <sheralikuziyev618@gmail.com>",
   "license": "MIT",
   "engines": {

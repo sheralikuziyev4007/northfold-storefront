@@ -1,6 +1,10 @@
 # Northfold — headless Shopify storefront
 
 [![CI](https://github.com/sheralikuziyev4007/northfold-storefront/actions/workflows/ci.yml/badge.svg)](https://github.com/sheralikuziyev4007/northfold-storefront/actions/workflows/ci.yml)
+[![Live demo](https://img.shields.io/badge/demo-live-3D5A4B)](https://northfold-storefront.vercel.app)
+[![License: MIT](https://img.shields.io/badge/license-MIT-blue)](LICENSE)
+
+**Live demo: [northfold-storefront.vercel.app](https://northfold-storefront.vercel.app)**
 
 A storefront for a fictional apparel brand, built with **Next.js 15 (App Router)** on top of the
 **Shopify Storefront API**. It runs against Shopify's public [mock.shop](https://mock.shop) sandbox
@@ -8,28 +12,30 @@ out of the box, or against any real Shopify store with two environment variables
 
 > Portfolio project. Northfold is not a real brand and the store does not sell anything.
 
-![Home page](docs/screenshots/home.png)
+![Home page](docs/screenshots/home.webp)
 
 <table>
   <tr>
-    <td><img src="docs/screenshots/product.png" alt="Product page with colour and size selection" /></td>
-    <td><img src="docs/screenshots/catalog.png" alt="Catalog with filters" /></td>
+    <td><img src="docs/screenshots/product.webp" alt="Product page with colour and size selection" /></td>
+    <td><img src="docs/screenshots/catalog.webp" alt="Catalog with filters" /></td>
   </tr>
   <tr>
-    <td><img src="docs/screenshots/cart.png" alt="Cart drawer with free-shipping progress" /></td>
-    <td><img src="docs/screenshots/search.png" alt="Command-K product search" /></td>
+    <td><img src="docs/screenshots/cart.webp" alt="Cart drawer with free-shipping progress" /></td>
+    <td><img src="docs/screenshots/search.webp" alt="Command-K product search" /></td>
   </tr>
 </table>
 
 <p>
-  <img src="docs/screenshots/mobile-home.png" alt="Home page on a phone" width="260" />
-  <img src="docs/screenshots/mobile-filters.png" alt="Filter sheet on a phone" width="260" />
+  <img src="docs/screenshots/mobile-home.webp" alt="Home page on a phone" width="260" />
+  <img src="docs/screenshots/mobile-filters.webp" alt="Filter sheet on a phone" width="260" />
 </p>
 
 ## Features
 
 **Shopping**
 
+- Product cards open on varied in-stock colours (and on the colour picked in the filters), so a grid
+  never shows the same colour twice in a row.
 - Collection pages with size, colour and price filters, four sort orders and "load more". Filters live
   in the URL, so every result set can be shared and survives a reload.
 - Product pages with a colour-aware gallery (thumbnails and hover zoom on desktop, swipe on mobile),
@@ -57,9 +63,11 @@ out of the box, or against any real Shopify store with two environment variables
   products (`ProductGroup` with per-variant offers), breadcrumbs and the organisation.
 - Accessibility: WCAG 2.1 AA checked with axe in the end-to-end suite, native `<dialog>` for modals
   (focus trap and Escape for free), visible focus, 44 px targets, `prefers-reduced-motion` respected.
-- Performance: Lighthouse on a production build with sample data scores 94–100 for Performance (mobile
-  and desktop) and 100 for Accessibility, Best Practices and SEO on the home, collection, product and
+- Performance: Lighthouse on the live Vercel deployment scores 95–100 for Performance (mobile and
+  desktop) and 100 for Accessibility, Best Practices and SEO on the home, collection, product and
   journal pages.
+- Missing products, collections and articles answer with HTTP 404; favicon, Apple touch icon and web
+  app manifest are generated from one SVG.
 - Analytics: GA4 ecommerce events (`view_item_list`, `view_item`, `add_to_cart`, `remove_from_cart`,
   `add_to_wishlist`, `begin_checkout`, `search`) sent only after the visitor accepts the consent banner.
 
@@ -71,7 +79,7 @@ out of the box, or against any real Shopify store with two environment variables
 | Commerce  | Shopify Storefront API (GraphQL), mock.shop by default                                                |
 | Styling   | Tailwind CSS 4 with design tokens in `globals.css`, Archivo variable font (width axis) via Fontsource |
 | State     | Server Actions + `useOptimistic` for the cart, Zustand for UI state and the wishlist                  |
-| Testing   | Vitest + Testing Library (45 tests), Playwright on desktop and mobile with axe (40 tests)             |
+| Testing   | Vitest + Testing Library (60 tests), Playwright on desktop and mobile with axe (58 tests)             |
 | Tooling   | ESLint, Prettier, GitHub Actions                                                                      |
 
 ## Architecture
@@ -130,14 +138,15 @@ Open http://localhost:3000.
 
 ### Environment variables
 
-| Variable                      | Purpose                                                  |
-| ----------------------------- | -------------------------------------------------------- |
-| `SHOPIFY_DATA_SOURCE`         | `live` (default) or `fixtures`                           |
-| `SHOPIFY_STOREFRONT_ENDPOINT` | Storefront API URL. Empty means `https://mock.shop/api`  |
-| `SHOPIFY_STOREFRONT_TOKEN`    | Public Storefront API token for a real store             |
-| `SHOPIFY_REVALIDATION_SECRET` | Shared secret for `/api/revalidate`                      |
-| `NEXT_PUBLIC_SITE_URL`        | Absolute URL for canonical links, sitemap and Open Graph |
-| `NEXT_PUBLIC_GA_ID`           | Optional GA4 measurement ID, loaded only after consent   |
+| Variable                      | Purpose                                                      |
+| ----------------------------- | ------------------------------------------------------------ |
+| `SHOPIFY_DATA_SOURCE`         | `live` (default) or `fixtures`                               |
+| `SHOPIFY_STOREFRONT_ENDPOINT` | Storefront API URL. Empty means `https://mock.shop/api`      |
+| `SHOPIFY_STOREFRONT_TOKEN`    | Public Storefront API token for a real store                 |
+| `SHOPIFY_REVALIDATION_SECRET` | Shared secret for `/api/revalidate`                          |
+| `NEXT_PUBLIC_SITE_URL`        | Absolute URL for canonical links, sitemap and Open Graph     |
+| `NEXT_PUBLIC_AUTHOR_URL`      | Where the footer credit links to (GitHub profile by default) |
+| `NEXT_PUBLIC_GA_ID`           | Optional GA4 measurement ID, loaded only after consent       |
 
 ### Connecting a real Shopify store
 
@@ -161,12 +170,14 @@ Open http://localhost:3000.
 | `npm run verify:live`                         | Checks every GraphQL operation against the live endpoint          |
 | `npm run images:fixtures`                     | Renders sample product and collection images to WebP              |
 | `npm run images:photos`                       | Downloads the hero and journal photos from Unsplash as WebP       |
+| `npm run images:icons`                        | Renders favicon, Apple touch icon and manifest icons from the SVG |
 | `npm run check`                               | Lint, typecheck, unit tests and build                             |
 
 ## Deploying to Vercel
 
 1. Push the repository to GitHub and import it in Vercel.
-2. Add `NEXT_PUBLIC_SITE_URL` with your Vercel URL. Leave the Shopify variables empty to use mock.shop.
+2. Leave the Shopify variables empty to use mock.shop. `NEXT_PUBLIC_SITE_URL` is optional on Vercel:
+   without it, canonical links and the sitemap use the project's production domain.
 3. Deploy. No other configuration is needed.
 
 ## Design decisions
